@@ -8,7 +8,7 @@ public struct Warnings {
         let warnings = "danger-swift.warnings-count"
         let dataExists: Bool = UserDefaults.standard.object(forKey: warnings) != nil
         let previousWarningsCount = UserDefaults.standard.integer(forKey: warnings)
-        let currentWarningsCount = lintWarningsCount()
+        let currentWarningsCount = lintWarnings()
         if dataExists && (currentWarningsCount > previousWarningsCount) {
             fail("Warnings count has increased from \(previousWarningsCount) to \(currentWarningsCount) warnings.")
         }
