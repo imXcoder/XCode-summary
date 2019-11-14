@@ -26,6 +26,16 @@ jobs:
             SCAN_DEVICE: iPhone 11 Pro Max
             SCAN_SCHEME: WebTests
 
+      - run:
+          name: Installing Danger JS
+          command: npm install -g danger
+      - run:
+          name: Compiling Danger
+          command: swift build
+      - run:
+          name: Running Danger Swift
+          command: swift run danger-swift ci
+
       # Collect XML test results data to show in the UI,
       # and save the same XML files under test-results folder
       # in the Artifacts tab
