@@ -1,0 +1,6 @@
+framework module Pods_XCode_summary_XCode_summaryUITests {
+  umbrella header "Pods-XCode-summary-XCode-summaryUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
