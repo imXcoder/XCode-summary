@@ -10,10 +10,16 @@ let package = Package(
         .library(
             name: "XCode-summary",
             targets: ["XCode-summary"]),
+        .library(
+            name: "DangerDeps",
+            type: .dynamic,
+            targets: ["DangerDependencies"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        
+        .package(url: "https://github.com/f-meloni/danger-swift-xcodesummary", from: "0.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -21,6 +27,9 @@ let package = Package(
         .target(
             name: "XCode-summary",
             dependencies: []),
+        .target(
+            name: "DangerDependencies",
+            dependencies: ["DangerXCodeSummary"]),
         .testTarget(
             name: "XCode-summaryTests",
             dependencies: ["XCode-summary"]),
