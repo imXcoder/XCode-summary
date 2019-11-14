@@ -11,7 +11,7 @@ let package = Package(
             name: "XCode-summary",
             targets: ["XCode-summary"]),
         .library(
-            name: "DangerDeps",
+            name: "DangerDependencies",
             type: .dynamic,
             targets: ["DangerDependencies"])
     ],
