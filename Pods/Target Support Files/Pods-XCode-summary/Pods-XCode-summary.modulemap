@@ -1,0 +1,6 @@
+framework module Pods_XCode_summary {
+  umbrella header "Pods-XCode-summary-umbrella.h"
+
+  export *
+  module * { export * }
+}

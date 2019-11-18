@@ -1,0 +1,69 @@
+# iOS CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
+#
+
+version: 2
+
+jobs:    
+  build:
+    macos:
+      xcode: "11.1.0"
+    working_directory: /Users/distiller/project
+
+    environment:
+      FL_OUTPUT_DIR: output
+    shell: /bin/bash --login -o pipefail
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - pods-{{ checksum "Podfile" }}
+      - run: bundle install
+      - run:
+          name: Install CocoaPods Dependenices
+          command: pod update
+      - save_cache:
+          key: pods-{{ checksum "Podfile" }}
+          paths:
+            - "/Users/distiller/.cocoapods/"
+            - "/Users/distiller/Library/Caches/CocoaPods/"
+      - store_artifacts:
+          path: /Users/distiller/project/output/Build_Install/
+
+          # Build the app and run tests
+      - run:
+          name: Build and run tests
+          command: fastlane scan
+          environment:
+            SCAN_DEVICE: iPhone 11 Pro Max
+            SCAN_SCHEME: WebTests
+
+      - run:
+          name: Installing Danger JS
+          command: npm install -g danger
+      - run:
+          name: Compiling Danger
+          command: swift build
+      - run:
+          name: Running Danger Swift
+          command: swift run danger-swift ci
+
+      # Collect XML test results data to show in the UI,
+      # and save the same XML files under test-results folder
+      # in the Artifacts tab
+      - store_test_results:
+          path: test_output/report.xml
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: scan-test-results
+      - store_artifacts:
+          path: ~/Library/Logs/scan
+          destination: scan-logs
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build

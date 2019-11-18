@@ -1,0 +1,6 @@
+framework module Pods_XCode_summaryTests {
+  umbrella header "Pods-XCode-summaryTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
