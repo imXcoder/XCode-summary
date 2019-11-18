@@ -1,7 +1,5 @@
 name: Danger
 
-on: [push]
-
 jobs:
   build:
 
